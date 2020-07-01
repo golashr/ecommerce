@@ -1,0 +1,53 @@
+{
+  "name": "ecommerce",
+  "version": "1.0.0",
+  "description": "Ecommerce microservice gives out the the cost of checkout products based on the rules available on its platform.",
+  "main": "src/service.js",
+  "scripts": {
+    "build": "babel src -d dist --source-maps",
+    "serve": "NODE_ENV=production pm2 start dist/service.js -i 0",
+    "start": "NODE_ENV=development babel-node nodemon src/service.js",
+    "dev": "DEBUG=server:debug NODE_ENV=development nodemon src/service.js --exec babel-node",
+    "test": "DEBUG=server:debug NODE_ENV=test mocha --require @babel/register --reporter spec --exit tests/ ",
+    "coverage": "DEBUG=server:debug NODE_ENV=test nyc --reporter=html --reporter=text mocha  --require @babel/register --reporter spec --exit tests/ --timeout 15000",
+    "lint": "eslint src/**/*.js tests/*.js"
+  },
+  "author": "Rahul Golash",
+  "license": "MIT",
+  "keywords": [
+    "ecommerce",
+    "checkout"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/golashr/ecommerce.git"
+  },
+  "dependencies": {
+    "ajv": "^6.12.2",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "helmet": "^3.23.2",
+    "log-timestamp": "^0.3.0",
+    "mongoose": "^5.9.20",
+    "speakeasy": "^2.0.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/node": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/register": "^7.10.3",
+    "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
+    "debug": "^4.1.1",
+    "eslint": "^7.3.1",
+    "mocha": "^8.0.1",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0",
+    "supertest": "^4.0.2"
+  }
+}

@@ -1,0 +1,46 @@
+version: "3"
+services:
+  mongo:
+    hostname: mongo
+    image: "mvertes/alpine-mongo:latest"
+    volumes:
+      - ./mongodb:/data/db
+    ports:
+      - "27017:27017"
+    restart: always
+    networks:
+      ecommerce_net:
+        ipv4_address: 172.19.240.17
+  swagger-ui:
+    hostname: swagger-ui
+    image: "swaggerapi/swagger-ui"
+    volumes:
+      - "./ecommerce-server:/tmp"
+    ports:
+      - "3999:8080"
+    restart: always
+    environment:
+      - SWAGGER_JSON=/tmp/swagger.yml
+    networks:
+      ecommerce_net:
+        ipv4_address: 172.19.240.16
+  ecommerceserver:
+    hostname: ecommerceserver
+    image: "golra03/ecommerceserver:latest"
+    ports:
+      - "3001:3001"
+    volumes:
+      - "./logs:/ecommerce/ecommerceserver/logs/ecommerce"
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+      - MONGO_HOST=172.19.240.17
+      - MONGO_PORT=27017
+      - MONGO_DB=prodserver
+    restart: always
+    networks:
+      ecommerce_net:
+        ipv4_address: 172.19.240.11
+networks:
+  ecommerce_net:
+    external: true

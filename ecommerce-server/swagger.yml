@@ -1,0 +1,126 @@
+swagger: "2.0"
+info:
+  description: "This is API page for ecommerce server."
+  version: 1.0.0
+  title: ECommerce Server Swagger YAML
+  termsOfService: "https://opensource.org/licenses/MIT"
+  contact:
+    email: "rahul.golash@gmail.com"
+  license:
+    name: MIT License
+    url: "https://opensource.org/licenses/MIT"
+host: localhost:3001
+basePath: /api/v1
+tags:
+  - name: sku
+    description: SKUs available on ecommerce platform
+    externalDocs:
+      description: Find out more
+      url: "https://github.com/golashr/ecommerce.git"
+schemes:
+  - http
+paths:
+  /getSKUs:
+    get:
+      tags:
+        - sku
+      summary: Get all SKUs from the store
+      x-swagger-router-controller: skupricecontroller
+      description: Get all SKUs from the store
+      operationId: getSKUs
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+        500:
+          description: Server error
+  /checkout:
+    post:
+      tags:
+        - sku
+      summary: Retrieves the total price of the shopping cart
+      description: Retrieves the total price of the shopping cart based on the discount offer time to time
+      operationId: checkout
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: cart
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+          description: The cart which lists all SKUs with corresponding numbers.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Checkout"
+      responses:
+        200:
+          description: Successful Operation
+        400:
+          description: Schema Validation error
+  /updateSKUs:
+    post:
+      tags:
+        - sku
+      summary: Insert/Update the SKU(s) price in the DB
+      description: Insert/Update the SKU(s) price in the given DB. Helpful for administrators to make amendements in SKU prices as per market dynamics.
+      operationId: updateSKUs
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: cart
+          required: true
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+          description: The cart which lists all SKUs with corresponding numbers.
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/PriceUpdate"
+      responses:
+        200:
+          description: Successful Operation
+definitions:
+  Checkout:
+    type: object
+    properties:
+      sku:
+        type: string
+        format: string
+        default: mbp
+        enum:
+          - ipd
+          - mbp
+          - atv
+          - vga
+      number:
+        type: integer
+        format: int32
+  PriceUpdate:
+    type: object
+    properties:
+      sku:
+        type: string
+        format: string
+        default: mbp
+        enum:
+          - ipd
+          - mbp
+          - atv
+          - vga
+      price:
+        type: integer
+        format: int32

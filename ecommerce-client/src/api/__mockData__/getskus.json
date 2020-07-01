@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "timestamp": 1593390867371,
+  "message": "<h1>The list of SKUs are retrieved by ECommerce service.</h1>",
+  "data": [
+    {
+      "sku": "mbp",
+      "name": "MacBook Pro",
+      "price": "1399.99",
+      "img": "./images/image2.jpg"
+    },
+    {
+      "sku": "atv",
+      "name": "Apple TV",
+      "price": "109.5",
+      "img": "./images/image3.jpg"
+    },
+    {
+      "sku": "vga",
+      "name": "VGA adapter",
+      "price": "30",
+      "img": "./images/image4.jpg"
+    },
+    {
+      "sku": "ipd",
+      "name": "Super iPad",
+      "price": "549.99",
+      "img": "./images/image1.jpg"
+    }
+  ]
+}

@@ -2,7 +2,9 @@ import Ajv from 'ajv';
 import { get, post } from './restapi';
 import { getSKUsSchema, checkoutSchema } from './schema';
 
-const baseURL = `http://${window.location.hostname}:3001/api/v1`;
+// const baseURL = `http://${window.location.hostname}:3001/api/v1`;
+
+const baseURL = 'http://121.211.90.209:3001/api/v1';
 const ajv = new Ajv();
 
 class ECommerce {
